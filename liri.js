@@ -18,7 +18,7 @@ var b = process.argv[3]
 
 //Creates an object to authenticate Twitter queries
 var client = new Twitter(keys.twitter)
-//Limmit to 20 Tweets
+//Limit to 20 Tweets
 var limitTweets = 20;
 
 switch (action) {
@@ -26,28 +26,27 @@ switch (action) {
         myTweets()
         break;
     case "spotify-this-song":
-        mySpotify()
+        mySpotify(b)
         break;
     case "movie-this":
-        myMovie()
+        myMovie(b)
         break;
     case "do-what-it-says":
         random()
         break;
-    default: 
-// Adds user instructions to re-select an available action
+    default:
+        // Adds user instructions to re-select an available action
         console.log("LIRI doesnt know that!")
         console.log("my-tweets, spotify-this-song, movie-this, do-what-it-says")
         break;
 
-//  ---------------------------Twitter API-------------------------------  //
+        //  ---------------------------Twitter API-------------------------------  //
         function myTweets() {
             var params = { screen_name: 'ProgramOlivia' }
             client.get('statuses/user_timeline', params, function (error, tweets, response) {
                 if (!error) {
-                    console.log(tweets)
-                    for(var i = 0; i < tweets.length; i++) {
-                        console.log(tweets[i.created_at])
+                    for (var i = 0; i < tweets.length; i++) {
+                        console.log(tweets[i].created_at)
                         console.log(' ')
                         console.log(tweets[i].text)
                     }
@@ -55,34 +54,33 @@ switch (action) {
             });
         }
         myTweets()
-//  --------------------------Spotify API----------------------------------  //
+        //  --------------------------Spotify API----------------------------------  //
         // Artist(s)
         // The song's name
         // A preview link of the song from Spotify
         // The album that the song is from
-        var getArtistNames = function(artist) {
-            return artist.name;
-        }
 
-        var mySpotify = function (song) {
+        function mySpotify(song) {
             spotify.search({ type: 'track', query: song }, function (err, data) {
                 if (err) {
                     return console.log('Error occurred: ' + err)
                 }
-                console.log(data.tracks.items)
+                var getArtistNames = function (artist) {
+                    return artist.name;
+                }
+                var songs = data.tracks.items
                 for (var i = 0; i < songs.length; i++) {
                     console.log(i)
                     console.log('artist(s): ' + songs[i].artists.map(getArtistNames));
                     console.log('song name: ' + songs[i].name);
-                    console.log('preview songs: ' + songs[i].preview_utl);
+                    console.log('preview songs: ' + songs[i].preview_url);
                     console.log('album ' + songs[i].album.name);
-                    console.log('---------------------------------------');
+                    console.log('-------------------------------------------------------');
                 }
             });
         }
-        mySpotify(b)
 
-//  -------------------------- Movies API ----------------------------------  //
+        //  -------------------------- Movies API ----------------------------------  //
         // * Title of the movie.
         // * Year the movie came out.
         // * IMDB Rating of the movie.
@@ -92,12 +90,21 @@ switch (action) {
         // * Plot of the movie.
         // * Actors in the movie.
 
-        var myMovie = function () {
-
+        function myMovie(movie) {
+            if (movie === undefined) {
+                movie = "mr nobody";
+            }
+            request("http://www.omdbapi.com/?apikey=trilogy&r=json&t=" + movie,
+                function (error, response, body) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(JSON.parse(body))
+                    }
+                });
         }
 
-        myMovie()
-//  -------------------------- Do what it says ---------------------------- //
+        //  -------------------------- Do what it says ---------------------------- //
         // takes the data from my random.txt file and 
         // passes it as a search value in the Spotify function
         // node liri.js do -what - it - says
@@ -113,10 +120,10 @@ switch (action) {
                 } else {
                     console.log(data)
 
-    //Convert data in text file into array
+                    //Convert data in text file into array
                     var arr = data.split(",")
                     value = arr[1];
-    // If command name at index[0] matches the string, invoke the function
+                    // If command name at index[0] matches the string, invoke the function
                     if (arr[0] === "movie-this") {
                         myMovie(value)
                     }
@@ -130,4 +137,4 @@ switch (action) {
             })
         }
         random()
-    }
+}

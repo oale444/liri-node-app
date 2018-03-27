@@ -1,13 +1,9 @@
 # liri-node-app
 <!-- For searching spotify requests  -->
-to search for a song run this in the console.
-node liri.js spotify-this-song ("name of song)
-
+* `spotify-this-song` + name of sont
 <!-- For tweets -->
-
+* `my-tweets` 
 <!-- For movies -->
-
+* `movie-this` + name of movie
 <!-- For random -->
-
-
-
+* `do-what-it-says` 
