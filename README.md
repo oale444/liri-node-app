@@ -1,6 +1,6 @@
 # liri-node-app
 <!-- For searching spotify requests  -->
-* `spotify-this-song` + name of sont
+* `spotify-this-song` + name of song
 <!-- For tweets -->
 * `my-tweets` 
 <!-- For movies -->
