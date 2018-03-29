@@ -1,3 +1,4 @@
+console.log('Link to my code on repo is https://github.com/oale444/liri-node-app')
 // initialize file system
 require("dotenv").config()
 
