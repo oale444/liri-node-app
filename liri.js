@@ -37,9 +37,10 @@ switch (action) {
     default:
         // Adds user instructions to re-select an available action
         console.log("LIRI doesnt know that!")
+        console.log("Use one of these commands,")
         console.log("my-tweets, spotify-this-song, movie-this, do-what-it-says")
         break;
-
+}
         //  ---------------------------Twitter API-------------------------------  //
         function myTweets() {
             var params = { screen_name: 'ProgramOlivia' }
@@ -53,7 +54,7 @@ switch (action) {
                 }
             });
         }
-        myTweets()
+
         //  --------------------------Spotify API----------------------------------  //
         // Artist(s)
         // The song's name
@@ -100,6 +101,7 @@ switch (action) {
                         console.log(error);
                     } else {
                         console.log(JSON.parse(body))
+                        console.log('-------------------------------------------------------------------');
                     }
                 });
         }
@@ -114,27 +116,23 @@ switch (action) {
 
         function random() {
 
-            fs.readFile('./random.txt', 'utf8', function (err, data) {
+            fs.readFile('random.txt', 'utf8', function (err, data) {
                 if (err) {
                     return console.log(err)
                 } else {
                     console.log(data)
 
                     //Convert data in text file into array
-                    var arr = data.split(",")
+                    var arr = data.split(", ")
                     value = arr[1];
                     // If command name at index[0] matches the string, invoke the function
                     if (arr[0] === "movie-this") {
                         myMovie(value)
-                    }
-                    else if (arr[0] === "spotify-this-song") {
+                    } else if (arr[0] === "spotify-this-song") {
                         mySpotify(value)
-                    }
-                    else if (arr[0] === "my-tweets") {
+                    } else if (arr[0] === "my-tweets") {
                         myTweets();
                     }
                 }
-            })
+            });
         }
-        random()
-}
