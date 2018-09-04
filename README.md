@@ -1,4 +1,10 @@
 # liri-node-app
+A backend command line app that utilizes Twitter and Spotify APIs.
+Built using jQuery, npms, node, and api keys.
+
+To install run npm install and don't forget to add your own api keys to the ".env "file.
+
+# Commands
 <!-- For searching spotify requests  -->
 * `spotify-this-song` + name of song
 <!-- For tweets -->
@@ -7,4 +13,4 @@
 * `movie-this` + name of movie
 <!-- For random -->
 * `do-what-it-says` 
-*'link to my code on github repo https://github.com/oale444/liri-node-app'
+
