@@ -2,7 +2,7 @@
 A backend command line app that utilizes Twitter and Spotify APIs.
 Built using jQuery, npms, node, and api keys.
 
-To install run npm install and don't forget to add your own api keys to the ".env "file.
+To install run npm install and don't forget to add your own api keys to the ".env" file you created!
 
 # Commands
 <!-- For searching spotify requests  -->
